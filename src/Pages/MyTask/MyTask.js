@@ -19,8 +19,6 @@ const MyTask = () => {
   const [animation, setanimation] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [previewImg, setPreviewImg] = useState(undefined);
-  const [remainingDays, setRemainingDays] = useState(null);
-  const [dueDate, setDueDate] = useState('');
 
   const { data: tasks, loading } = useSelector((state) => state.tasks);
 
@@ -74,7 +72,7 @@ const MyTask = () => {
 
   const handledelete = (id) => {
     console.log(id);
-    fetch(`http://localhost:5000/task/${id}`, {
+    fetch(`https://to-do-server-nine.vercel.app/task/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -87,7 +85,7 @@ const MyTask = () => {
   };
 
   const handleDone = (id) => {
-    fetch(`http://localhost:5000/donetask/${id}`, {
+    fetch(`https://to-do-server-nine.vercel.app/donetask/${id}`, {
       method: "PUT",
     })
       .then((res) => res.json())
@@ -121,7 +119,7 @@ const MyTask = () => {
       dueDate
     };
     fetch(
-      `http://localhost:5000/edittask/${edittask}`,
+      `https://to-do-server-nine.vercel.app/edittask/${edittask}`,
       {
         method: "PUT",
         headers: {
@@ -236,7 +234,7 @@ const MyTask = () => {
                       )}
                     </p>
                     <p
-                      // onClick={() => accordianOpenClose(task._id)}
+
                       type=""
                       className="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500   dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 "
                       data-accordion-target="#accordion-collapse-body-1"

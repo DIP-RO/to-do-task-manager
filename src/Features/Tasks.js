@@ -7,7 +7,7 @@ export const gettasks = createAsyncThunk(
     // console.log(getState());
     try {
       const { data, refetch } = await axios.get(
-        `http://localhost:5000/tasks?email=${object}`
+        `https://to-do-server-nine.vercel.app/tasks?email=${object}`
       );
       return data;
     } catch (error) {
@@ -59,7 +59,7 @@ export default taskSlice.reducer;
 //     const fetchData = async () => {
 //       setLoading(true);
 //       try {
-//         const res = await fetch(`http://localhost:5000/tasks?email=${object}`);
+//         const res = await fetch(`https://to-do-server-nine.vercel.app/tasks?email=${object}`);
 //         const data = await res.json();
 //         setTasks(data);
 //         setIsSuccess(true);

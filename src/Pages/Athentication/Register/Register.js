@@ -42,7 +42,7 @@ const Register = () => {
 
                 }, 300);
                 toast.success('Register SuccessFully')
-                console.log("🚀 ~ file: RegisterPage.js ~ line 21 ~ handleSubmit ~ user", user)
+                console.log(user)
             })
             .catch(error => {
                 console.log('error', error);

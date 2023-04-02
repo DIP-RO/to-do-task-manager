@@ -33,10 +33,10 @@ const AddTask = () => {
       image,
       remainingDays
     };
-    // https://task-recoder-v2-server-main.vercel.app/task
+
     console.log(task);
     console.log(imgHostKey);
-    fetch(`http://localhost:5000/task`, {
+    fetch(`https://to-do-server-nine.vercel.app/task`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -110,19 +110,7 @@ const AddTask = () => {
     return diffDays;
   };
 
-  // useEffect(() => {
-  //     const listener = event => {
-  //       if (event.code === "Enter" || event.code === "NumpadEnter") {
-  //         // event.preventDefault()
-  //           handleform(event)
-  //         //   console.log(title,details)
-  //       }
-  //     };
-  //     document.addEventListener("keydown", listener);
-  //     return () => {
-  //       document.removeEventListener("keydown", listener);
-  //     };
-  //   }, []);
+
 
   return (
     <div className="px-0 md:px-10">
@@ -180,6 +168,7 @@ const AddTask = () => {
               <input
                 type="date"
                 value={dueDate}
+                required
                 onChange={handleDueDateInput}
               />
             </label>

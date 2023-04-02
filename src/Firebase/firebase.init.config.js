@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDJq_NI7nd-RBkj5lvHm5N42XUZbIvGeQA",
-  authDomain: "task-manager-fedb7.firebaseapp.com",
-  projectId: "task-manager-fedb7",
-  storageBucket: "task-manager-fedb7.appspot.com",
-  messagingSenderId: "385000207042",
-  appId: "1:385000207042:web:ee8e387747847cc9d5815b",
+  apiKey: "AIzaSyCoHkopOIiGEuZBmHfSH4jZPBGgZIFQLxw",
+  authDomain: "to-do-task-manager-443f4.firebaseapp.com",
+  projectId: "to-do-task-manager-443f4",
+  storageBucket: "to-do-task-manager-443f4.appspot.com",
+  messagingSenderId: "11952444545",
+  appId: "1:11952444545:web:39af6293a452c6a7fee980"
 };
 
 // Initialize Firebase
