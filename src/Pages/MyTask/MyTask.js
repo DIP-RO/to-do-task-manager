@@ -15,13 +15,12 @@ const MyTask = () => {
   const navigate = useNavigate();
   const [open, setopen] = useState("");
   const [edittask, setEdittask] = useState("");
-
+  const imgHostKey = process.env.REACT_APP_imgbbKey;
   const [animation, setanimation] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [previewImg, setPreviewImg] = useState(undefined);
 
   const { data: tasks, loading } = useSelector((state) => state.tasks);
-
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -46,7 +45,8 @@ const MyTask = () => {
         setanimation(true);
         const formData = new FormData();
         formData.append("image", image);
-        const url = `https://api.imgbb.com/1/upload?key=fbda1ce04b3ce5ac27d7c9889f896be1`;
+        const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imgHostKey}`;
+        console.log(url);
         fetch(url, {
           method: "POST",
           body: formData,
@@ -60,7 +60,7 @@ const MyTask = () => {
           });
       }
     }
-  }, [fileList?.target?.files,]);
+  }, [fileList?.target?.files, imgHostKey]);
 
   const accordianOpenClose = (id) => {
     if (id === open) {
@@ -72,7 +72,7 @@ const MyTask = () => {
 
   const handledelete = (id) => {
     console.log(id);
-    fetch(`https://to-do-server-nine.vercel.app/task/${id}`, {
+    fetch(`https://task-recoder-v2-server-main.vercel.app/task/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -85,7 +85,7 @@ const MyTask = () => {
   };
 
   const handleDone = (id) => {
-    fetch(`https://to-do-server-nine.vercel.app/donetask/${id}`, {
+    fetch(`https://task-recoder-v2-server-main.vercel.app/donetask/${id}`, {
       method: "PUT",
     })
       .then((res) => res.json())
@@ -111,15 +111,13 @@ const MyTask = () => {
     const title = form.title.value;
     const details = form?.details?.value;
     const image = previewImg;
-    const dueDate = form.dueDate.value;
     const updateDoc = {
       title,
       details,
       image,
-      dueDate
     };
     fetch(
-      `https://to-do-server-nine.vercel.app/edittask/${edittask}`,
+      `https://task-recoder-v2-server-main.vercel.app/edittask/${edittask}`,
       {
         method: "PUT",
         headers: {
@@ -135,30 +133,18 @@ const MyTask = () => {
         setEdittask("");
       });
   };
-  // useEffect(() => {
-  //   const diffDays = calculateRemainingDays(dueDate);
-  //   setRemainingDays(diffDays);
-  // }, [dueDate]);
-  // const calculateRemainingDays = (date) => {
-  //   const today = new Date();
-  //   const dueDate = new Date(date);
-  //   const timeDiff = dueDate.getTime() - today.getTime();
-  //   const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-  //   return diffDays;
-  // };
-
 
   if (loading) {
     return <LoadingAnimation></LoadingAnimation>;
   }
 
   return (
-    <section className=" px-0 md:px-10 ">
-      <h1 className="text-start mb-8 mt-5  font-semibold text-xl my-4 mx-4 md:mx-10 text-white">
+    <section className=" px-0 md:px-10">
+      <h1 className="text-start font-semibold text-xl my-4 mx-4 md:mx-10 text-white">
         My Task
       </h1>
-      <div className="">
-        <div className="">
+      <div>
+        <div>
           {undone?.length === 0 ? (
             <div className="flex justify-center items-center m-20">
               <p className="text-xl font-semibold">
@@ -172,7 +158,7 @@ const MyTask = () => {
                   onSubmit={handleEditsave}
                   key={task._id}
                   id="accordion-collapse"
-                  className=" md:w-[500px]  mx-4 md:mx-10 my-2 bg-gray-900 font-semibold rounded-md sm:grid grid-cols-3"
+                  className=" md:w-[800px] mx-4 md:mx-10 my-2 bg-gray-900 font-semibold rounded-md"
                   data-accordion="collapse"
                 >
                   <h2 className="flex items-center px-2">
@@ -187,29 +173,30 @@ const MyTask = () => {
                     >
                       {edittask === task._id ? (
                         <>
-                          <input
+                          {/* <input
                             name="title"
                             type="text"
                             className="text-gray-800 py-1 rounded overflow-hidden"
-                          // defaultValue={task.title}
-                          />
+                            defaultValue={task.title}
+                          /> */}
                         </>
                       ) : (
                         <>
-                          <div className="gap-5">
-                            <span className="text-white ">{task.title}</span>
-                            <br />
-                            <p className="font-extralight text-gray-300 dark:text-gray-200">
-                              {task.details.slice(0, 50)}<span className='font-medium italic'>...Read More</span>
-                            </p>
-
-
+                            <div >
+                            <div>
+                            <span className="text-white">{task.title}</span>
                           </div>
-
+                          <div>
+                            <p className="font-extralight text-gray-300 dark:text-gray-200">
+                              {task.details.slice(0, 7)}<span className='font-medium italic'>...Read More</span>
+                            </p>
+                          </div>
+                       </div>
 
                         </>
                       )}
                     </p>
+                 
                     <p
                       onClick={() => accordianOpenClose(task._id)}
                       type=""
@@ -271,7 +258,7 @@ const MyTask = () => {
                       <>
                         <button
                           onClick={() => handleEditOpen(task._id)}
-                          className="text-white px-2 "
+                          className="text-white px-2"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -351,7 +338,6 @@ const MyTask = () => {
                         <>
                           <div className="flex justify-between item-center">
                             <button
-                              onClick={() => handleEditOpen(task._id)}
                               type="submit"
                               className="px-4  py-1 rounded text-gray-800 bg-white  "
                             >
