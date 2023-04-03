@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import uploadimg from "../../assets/images/cloud-upload-regular-240.png";
 import { AuthContext } from "../../Context/UserContext";
-const AddTask = () => {
+const AddTask = ({ }) => {
   const [title, setTile] = useState("");
   const [details, setDetails] = useState("");
   const [dueDate, setDueDate] = useState('');

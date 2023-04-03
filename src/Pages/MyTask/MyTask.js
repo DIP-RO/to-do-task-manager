@@ -172,7 +172,7 @@ const MyTask = () => {
                   onSubmit={handleEditsave}
                   key={task._id}
                   id="accordion-collapse"
-                  className=" md:w-[800px] mx-4 md:mx-10 my-2 bg-gray-900 font-semibold rounded-md"
+                  className=" md:w-[500px]  mx-4 md:mx-10 my-2 bg-gray-900 font-semibold rounded-md sm:grid grid-cols-3"
                   data-accordion="collapse"
                 >
                   <h2 className="flex items-center px-2">
@@ -191,13 +191,18 @@ const MyTask = () => {
                             name="title"
                             type="text"
                             className="text-gray-800 py-1 rounded overflow-hidden"
-                            defaultValue={task.title}
+                          // defaultValue={task.title}
                           />
                         </>
                       ) : (
                         <>
-                          <div className="flex gap-5">
+                          <div className="gap-5">
                             <span className="text-white ">{task.title}</span>
+                            <br />
+                            <p className="font-extralight text-gray-300 dark:text-gray-200">
+                              {task.details.slice(0, 50)}<span className='font-medium italic'>...Read More</span>
+                            </p>
+
 
                           </div>
 
@@ -266,7 +271,7 @@ const MyTask = () => {
                       <>
                         <button
                           onClick={() => handleEditOpen(task._id)}
-                          className="text-white px-2"
+                          className="text-white px-2 "
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
